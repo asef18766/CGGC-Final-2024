@@ -36,13 +36,13 @@
 void vApplicationStackOverflowHook( TaskHandle_t pxTask,
                                     char * pcTaskName );
 void vApplicationMallocFailedHook( void );
-void main_tcp_echo_client_tasks( void );
 void vApplicationIdleHook( void );
 void vApplicationTickHook( void );
+extern void init_networking();
 
 int main( void )
 {
-    main_tcp_echo_client_tasks();
+    init_networking();
     return 0;
 }
 

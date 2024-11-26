@@ -1,6 +1,7 @@
 CC = arm-none-eabi-gcc
 SIZE = arm-none-eabi-size
 BIN := freertos_tcp_mps2_demo.axf
+DEBUG = 1
 
 BUILD_DIR := build
 
@@ -19,8 +20,7 @@ FREERTOS_TCP = ${FREERTOS_PLUS_DIR}/Source/FreeRTOS-Plus-TCP
 SOURCE_FILES += startup.c
 SOURCE_FILES += syscalls.c
 SOURCE_FILES += main.c
-SOURCE_FILES += main_networking.c
-SOURCE_FILES += TCPEchoClient_SingleTasks.c
+SOURCE_FILES += main_network.c
 
 INCLUDE_DIRS += -ICMSIS
 
