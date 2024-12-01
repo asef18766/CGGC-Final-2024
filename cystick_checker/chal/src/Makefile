@@ -1,7 +1,7 @@
 CC = arm-none-eabi-gcc
 SIZE = arm-none-eabi-size
+STRIP = arm-none-eabi-strip
 BIN := freertos_tcp_mps2_demo.axf
-DEBUG = 1
 
 BUILD_DIR := build
 
@@ -21,6 +21,7 @@ SOURCE_FILES += startup.c
 SOURCE_FILES += syscalls.c
 SOURCE_FILES += main.c
 SOURCE_FILES += main_network.c
+SOURCE_FILES += flag_checker.c
 
 INCLUDE_DIRS += -ICMSIS
 
@@ -77,7 +78,9 @@ OBJ_FILES := $(SOURCE_FILES:%.c=$(BUILD_DIR)/%.o)
 
 $(BUILD_DIR)/$(BIN) : $(OBJ_FILES)
 	$(CC) $(CFLAGS) $(LDFLAGS) $+ -o $(@)
+	$(STRIP) $(@)
 	$(SIZE) $(@)
+	cp $(@) ../../dist/$(BIN)
 
 %.d: %.c
 	@set -e; rm -f $@; \
@@ -93,4 +96,4 @@ ${BUILD_DIR}/%.o : %.c Makefile
 	$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
 
 clean:
-	-rm -rf build
+	-rm -rf build ../../dist/$(BIN)

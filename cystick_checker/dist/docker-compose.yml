@@ -1,0 +1,7 @@
+services:
+  srv:
+    build: .
+    volumes:
+      - .:/root
+    privileged: true
+    entrypoint: /bin/bash -c "cd ~ && bash ifup.sh && bash run.sh"

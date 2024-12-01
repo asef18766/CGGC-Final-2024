@@ -45,7 +45,7 @@ extern void vLoggingPrintf( const char * pcFormatString,
 /* Set to 1 to print out debug messages.  If ipconfigHAS_DEBUG_PRINTF is set to
  * 1 then FreeRTOS_debug_printf should be defined to the function used to print
  * out the debugging messages. */
-#define ipconfigHAS_DEBUG_PRINTF    1
+#define ipconfigHAS_DEBUG_PRINTF    0
 
 #ifdef HEAP3
     #define xPortGetMinimumEverFreeHeapSize( x )    0
@@ -66,7 +66,7 @@ extern void vLoggingPrintf( const char * pcFormatString,
  * FreeRTOS_netstat() command, and ping replies.  If ipconfigHAS_PRINTF is set to 1
  * then FreeRTOS_printf should be set to the function used to print out the
  * messages. */
-#define ipconfigHAS_PRINTF    1
+#define ipconfigHAS_PRINTF    0
 #if ( ipconfigHAS_PRINTF == 1 )
     #include <stdio.h>
     #define FreeRTOS_printf( X )         \

@@ -67,7 +67,7 @@ extern void vAssertCalled( void );
 #define configUSE_MUTEXES                       1
 #define configUSE_RECURSIVE_MUTEXES             1
 #define INCLUDE_vTaskPrioritySet                0
-#define INCLUDE_uxTaskPriorityGet               0
+#define INCLUDE_uxTaskPriorityGet               1
 #define INCLUDE_vTaskDelete                     1
 #define INCLUDE_vTaskCleanUpResources           0
 #define INCLUDE_vTaskSuspend                    0

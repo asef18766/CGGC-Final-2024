@@ -13,7 +13,7 @@
 #include "CMSIS/CMSDK_CM3.h"
 
 
-#define usUsedStackSize 0x1000
+#define usUsedStackSize 0x100
 
 
 static const uint8_t ucIPAddress[ 4 ] =
@@ -54,13 +54,12 @@ const uint8_t ucMACAddress[ 6 ] =
     configMAC_ADDR5
 };
 
+extern void ValidateUserInput(Socket_t xSocket);
+
 void prvServerConnectionInstance( Socket_t server_sock )
 {
     FreeRTOS_debug_printf( ("server connected\n") );
-    
-    /* Initiate a shutdown in case it has not already been initiated. */
-    FreeRTOS_shutdown( server_sock, FREERTOS_SHUT_RDWR );
-    FreeRTOS_closesocket( server_sock );
+    xTaskCreate(ValidateUserInput, "씨팔", 0x100, server_sock, 1, 0);
     vTaskDelete(NULL);
 }
 
@@ -131,7 +130,7 @@ static NetworkEndPoint_t xEndPoints[ 4 ];
 void init_networking()
 { 
     BaseType_t xReturn;
-    const uint32_t ulLongTime_ms = pdMS_TO_TICKS( 1000UL );
+    const uint32_t ulLongTime_ms = pdMS_TO_TICKS( 1 );
 
     FreeRTOS_debug_printf( ("start init networking\n") );
     NVIC_SetPriority( ETHERNET_IRQn, configMAC_INTERRUPT_PRIORITY );
@@ -155,9 +154,8 @@ void init_networking()
 
     FreeRTOS_debug_printf( ("start sched\n") );
     
-    /* Start the RTOS scheduler. */
     vTaskStartScheduler();
-    
+
     /* If all is well, the scheduler will now be running, and the following
        line will never be reached.  If the following line does execute, then
        there was insufficient FreeRTOS heap memory available for the idle and/or

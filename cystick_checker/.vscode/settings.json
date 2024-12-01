@@ -6,6 +6,7 @@
         "types.h": "c",
         "tcpechoclient_singletasks.h": "c",
         "freertos_sockets.h": "c",
-        "smsc9220_eth_drv.h": "c"
+        "smsc9220_eth_drv.h": "c",
+        "stdint.h": "c"
     }
 }
