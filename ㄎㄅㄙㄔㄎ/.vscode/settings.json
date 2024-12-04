@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "getprocaddresswithhash.h": "c",
+        "stdio.h": "c",
+        "chacha20.h": "c",
+        "windows.h": "c",
+        "trash.h": "c"
+    },
+    "C_Cpp.errorSquiggles": "disabled"
+}
