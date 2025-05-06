@@ -56,10 +56,11 @@ DEFINES := -DHEAP3
 CPPFLAGS += $(DEFINES)
 
 CFLAGS += -mthumb -mcpu=cortex-m3
+
 ifeq ($(DEBUG), 1)
     CFLAGS += -g3 -Og -ffunction-sections -fdata-sections
 else
-    CFLAGS += -Os -ffunction-sections -fdata-sections
+    CFLAGS += -ffunction-sections -fdata-sections
 endif
 CFLAGS += -MMD
 CFLAGS += -Wall -Wextra -Wshadow
