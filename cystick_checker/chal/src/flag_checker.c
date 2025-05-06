@@ -16,7 +16,6 @@
 // flag represented in binary tree
 //char flag[] = "CGGC{If yOU c@n 5O1VE 7h!5 THeN y0u tRU3LY Pr0VE you @rE Cy5T!cK now}";
 //int flag_len = sizeof(flag) - 1;
-int flag_verify_procedure = 0;
 
 char *layers[]={
     "C",
@@ -34,12 +33,12 @@ int layer_idx[LAYER_CNT] = {0};
 char fail_str[] = "you are not cystick enough\n";
 char success_str[] = "you are truelly a cystick now :D\n";
 
-// create task by user input, and verify according to tsk priority xor random
+// create task by user input, and verify according to tsk priority
 void ValidateUserInput(Socket_t xSocket)
 {
     int layer = uxTaskPriorityGet(xTaskGetCurrentTaskHandle()) - 1;
 
-    if (xSocket->u.xTCP.eTCPState == eCLOSED)
+    if (xSocket->u.xTCP.eTCPState == eCLOSED || xSocketValid(xSocket) == pdFALSE)
     {
         memset(layer_idx, 0, sizeof(layer_idx));
         vTaskDelete(NULL);
@@ -61,6 +60,14 @@ void ValidateUserInput(Socket_t xSocket)
         return;
     }
 
+    if (cur_char == 0) // EOF
+    {
+        // do not close socket again
+        memset(layer_idx, 0, sizeof(layer_idx));
+        vTaskDelete(NULL);
+        return;
+    }
+
     if (cur_char != layers[layer][layer_idx[layer]])
     {
 
@@ -77,6 +84,11 @@ void ValidateUserInput(Socket_t xSocket)
     
     bool check = true;
     for (int i = 0; i != LAYER_CNT; ++i)
+        if (layer_idx[i] != strlen(layers[i]))
+        {
+            check = false;
+            break;
+        }
 
     if (check)
     {
